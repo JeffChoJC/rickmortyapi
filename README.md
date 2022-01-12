@@ -1,46 +1,21 @@
-# Getting Started with Create React App
+# README
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What architectural decision did you make and why? Elaborate on strengths and weaknesses.
 
-## Available Scripts
+At first I used `create-react-app` to simplify setup but later ended up stripping down most of the dependencies. I also added `react-router` and `react-router-dom` to handle site navigation before deciding to create a modal for the click event of each character entry. I thought this was a cleaner, more lightweight, and more aesthetically pleasing solution. It was also easier to pass the character's location name to the modal, eliminating the need for a redundant query. For querying, I chose GraphQL because the REST APIs returned bulky responses with unnecessary data. I was able to use GraphQL to request only the information I needed in an attempt to minimize loading. The difference is negligible because the assignment asked for a finite and small number of requests but there should be a difference at scale. I tried to avoid a second query by extracting the residents within the characters query but the API consistently returned an "INTERNAL_SERVER_ERROR". TypeScript was used to better maintain payloads and responses as well as support readability and extensibility.
 
-In the project directory, you can run:
+### How did you handle error cases?
 
-### `npm start`
+I used React's `useState` hook to manage errors. The queries were executed upon the components' rendering, and errors were caught and set using the hook and React's `useEffect`. Because I implemented a way to query for different "pages", I had to clean up error state upon each render as well in order to properly request a different page. I didn't do much in the case of errors being present. I simply rendered the characters list and details table conditionally, displaying `There has been an error.` when an error occurred.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### How did you test the app?
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The app was tested visually and using `console.log()` to verify data and errors.
 
-### `npm test`
+### What third party libraries/external code snippets did you use, if any?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I used external code snippets to assist in my webpack configuration. Much of my `tsconfig.json` and `package.json` were provided by `create-react-app`. Libraries I used included `graphql`, `graphql-request`, and `typescript`.
 
-### `npm run build`
+### If you had more time, what would you have done differently?
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Given more time, my main priority would would have been to implement unit tests using Jest. I was also considering leaving routing available to allow different searches on different paths. The search algorithm should also be more fault-proof, validating properly for inputs before executing queries to improve performance and experience. Last but not least, I would spend more time styling the components using Sass to make them more visually appealing.

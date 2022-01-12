@@ -21,9 +21,14 @@ const CharacterModal = ({details, show, onClick}: Props) => {
           setErrors(errors)
         });
     }
+
+    return () => {
+      setResidents([]);
+      setErrors(null);
+    }
   },[location])
 
-  const [residents, setResidents] = useState<Character[]>();
+  const [residents, setResidents] = useState<Character[]>([]);
   const [errors, setErrors] = useState(null);
 
   if (errors != null) {
@@ -44,30 +49,32 @@ const CharacterModal = ({details, show, onClick}: Props) => {
           <div className="character-details-wrapper">
             <h3>{details.name}</h3>
             <table>
-              <tr>
-                <td>Status: </td>
-                <td>{details.status}</td>
-              </tr>
-              <tr>
-                <td>Species: </td>
-                <td>{details.species}</td>
-              </tr>
-              <tr>
-                <td>Location Name: </td>
-                <td>{location?.name}</td>
-              </tr>
-              <tr>
-                <td>Location Type: </td>
-                <td>{location?.type}</td>
-              </tr>
-              <tr>
-                <td>Location Dimension: </td>
-                <td>{location?.dimension}</td>
-              </tr>
-              <tr>
-                <td>Location Residents: </td>
-                <td>{residents?.length}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>Status: </td>
+                  <td>{details.status}</td>
+                </tr>
+                <tr>
+                  <td>Species: </td>
+                  <td>{details.species}</td>
+                </tr>
+                <tr>
+                  <td>Location Name: </td>
+                  <td>{location?.name}</td>
+                </tr>
+                <tr>
+                  <td>Location Type: </td>
+                  <td>{location?.type}</td>
+                </tr>
+                <tr>
+                  <td>Location Dimension: </td>
+                  <td>{location?.dimension}</td>
+                </tr>
+                <tr>
+                  <td>Location Residents: </td>
+                  <td>{residents?.length}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
