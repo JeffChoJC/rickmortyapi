@@ -33,6 +33,7 @@ td:nth-child(2) {
 
 .character-wrapper:hover {
   cursor: pointer;
+  background-color: rgba(255, 255, 0, 0.5);
 }
 
 .character-wrapper > h3 {
